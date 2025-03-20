@@ -29,7 +29,9 @@ public class UserDetailsServiceSecurity implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("There is no %s user", email));
         }
         return new org.springframework.security.core.userdetails.User
-                (user.getEmail(), user.getPassword(), mapRolesToAuthority(user.getRoles()));
+                (user.getEmail(),
+                        user.getPassword(),
+                        mapRolesToAuthority(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthority(Collection<Role> roles) {
