@@ -3,15 +3,20 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
-
 import java.security.Principal;
 import java.util.Set;
 
 @Controller
 public class AdminController {
+
     private final UserService userService;
 
     @Autowired
@@ -42,7 +47,8 @@ public class AdminController {
 
     @PatchMapping(value = "/users")
     public String updateUser(@ModelAttribute("user") User user,
-                             @RequestParam(name = "selectedRoles", required = false) Set<String> selectedRoles) {
+                             @RequestParam(name = "selectedRoles",
+                                     required = false) Set<String> selectedRoles) {
         userService.saveUser(user, selectedRoles);
         return "redirect:/admin";
     }
